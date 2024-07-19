@@ -3,6 +3,16 @@ from django.template.loader import render_to_string
 from django.conf import settings
 
 
+def send_verification_email(user_email, verification_url):
+    """
+    Sends a verification email to the provided user email address.
+    """
+    subject = "Verifiy Email"
+    context = {"verification_url": verification_url}
+    html_content = render_to_string("verification_email.html", context)
+    send_html_email(subject, html_content, settings.EMAIL_FROM, [user_email])
+
+
 def send_password_reset_email(user_email, reset_url):
     """
     Sends a password reset email to the provided user email address.

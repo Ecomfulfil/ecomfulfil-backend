@@ -30,6 +30,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
 HOST_URL = config("HOST_URL")
+CLIENT_URL = config("CLIENT_URL")
 
 # Application definition
 INSTALLED_APPS = [

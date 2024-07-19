@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Verify Email</title>
+    <style>
+      /* Optional styling for the email content */
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+      }
+      h1 {
+        margin-bottom: 15px;
+      }
+      a {
+        color: #333;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Hi there,</p>
+    <p>
+      You recently requested an email verification for your account.
+      Click the link below to verify:
+    </p>
+    <p><a href="{{ verification_url }}">Verify Email</a></p>
+    <p>
+      If you did not request an email verification, you can safely
+      ignore this email.
+    </p>
+    <p>Thanks,</p>
+    <p>The Team</p>
+  </body>
+</html>

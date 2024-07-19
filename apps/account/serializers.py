@@ -63,5 +63,15 @@ class ResetPasswordSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True, validators=[password_validator])
 
 
+class SendVerificationEmailSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+
+    def validate_email(self, value):
+        # Check if any user in the database has this email
+        if not User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("No user found with this email address.")
+        return value
+
+
 class VerifyEmailSerializer(serializers.Serializer):
     token = serializers.CharField(required=True)
