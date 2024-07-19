@@ -19,16 +19,12 @@ from django.conf import settings
 User = get_user_model()
 
 
-def get_token_error_response(e):
-    return Response({"message": str(e)}, status=status.HTTP_401_UNAUTHORIZED)
-
-
 def handle_token_error(func):
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
         except TokenError as e:
-            return get_token_error_response(e)
+            return Response({"message": str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
     return wrapper
 
