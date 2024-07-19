@@ -1,0 +1,17 @@
+name: Node.js CI - Prod
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  build:
+    runs-on: prod
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
