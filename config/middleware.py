@@ -52,8 +52,6 @@ class CustomErrorMiddleware:
                     else "Bad request with unspecified error."
                 )
                 return self.format_error_response(message)
-            return self.format_error_response(
-                "Bad request with unspecified error.", 400
-            )
+            return JsonResponse(details, status=400)
         except json.JSONDecodeError:
             return self.format_error_response("Invalid JSON input", 400)

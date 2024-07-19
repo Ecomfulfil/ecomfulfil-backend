@@ -10,13 +10,14 @@ def send_password_reset_email(user_email, reset_url):
     subject = "Reset Your Password"
     context = {"reset_url": reset_url}
     html_content = render_to_string("password_reset_email.html", context)
-    send_html_email(subject, html_content, settings.EMAIL_HOST_USER, [user_email])
+    send_html_email(subject, html_content, settings.EMAIL_FROM, [user_email])
 
 
 def send_html_email(subject, html_content, email_from, recipient_list):
     """
     Sends an HTML email with the provided details.
     """
+    print(email_from, recipient_list)
     msg = EmailMultiAlternatives(
         subject=subject,
         from_email=email_from,

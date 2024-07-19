@@ -11,12 +11,21 @@ from .serializers import (
     VerifyEmailSerializer,
 )
 from django.contrib.auth import authenticate
-from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+from rest_framework_simplejwt.tokens import (
+    RefreshToken,
+    AccessToken,
+    TokenError,
+    SlidingToken,
+    UntypedToken,
+)
+from rest_framework_simplejwt.token_blacklist.models import (
+    BlacklistedToken,
+)
 from django.contrib.auth import get_user_model
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
 from apps.emails.utils import send_password_reset_email
+from django.conf import settings
+import jwt
+from datetime import datetime, timedelta, timezone
 
 User = get_user_model()
 
@@ -102,15 +111,13 @@ class ForgotPasswordView(APIView):
         serializer = ForgotPasswordSerializer(data=request.data)
         if serializer.is_valid():
             email = serializer.validated_data["email"]
-            # Retrieve user based on the validated email
             user = User.objects.get(email=email)
 
-            # Generate token and encode UID
-            token = default_token_generator.make_token(user)
-            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            # Generate access token
+            access_token = str(AccessToken.for_user(user))
 
             # Construct the reset URL
-            reset_url = f"https://api.yourcard.au/reset-password/{uid}/{token}/"  # Adjust the domain as needed
+            reset_url = f"{settings.HOST_URL}/reset-password/{access_token}/"
 
             # Send the password reset email
             send_password_reset_email(user.email, reset_url)
@@ -128,11 +135,39 @@ class ResetPasswordView(APIView):
             token = serializer.validated_data.get("token")
             password = serializer.validated_data.get("password")
 
-            # Verify the token
-            user = User.objects.filter(pk=token).first()
-            if user is None or not default_token_generator.check_token(user, token):
+            try:
+                access_token = AccessToken(token)
+                user_id = access_token["user_id"]
+
+                user = User.objects.get(id=user_id)
+
+                # Blacklist the token
+                blacklisted_token, created = BlacklistedToken.objects.get_or_create(
+                    token=token
+                )
+                if not created:
+                    return Response(
+                        {"error": "Token has already been used"},
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+
+            except TokenError as e:
+                print(f"Token error: {e}")
                 return Response(
-                    {"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST
+                    {"error": "Invalid or expired token"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            except User.DoesNotExist as e:
+                print(f"User does not exist error: {e}")
+                return Response(
+                    {"error": "Invalid or expired token"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            except Exception as e:
+                print(f"Unexpected error: {e}")
+                return Response(
+                    {"error": "An unexpected error occurred"},
+                    status=status.HTTP_400_BAD_REQUEST,
                 )
 
             # Update user's password

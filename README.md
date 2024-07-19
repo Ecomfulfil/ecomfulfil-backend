@@ -16,12 +16,16 @@ Ecomfulfil Backend is a Django-based backend application providing REST APIs for
 1. **Clone the repository**
    ```bash
    git clone git@github.com:Ecomfulfil/ecomfulfil-backend.git
+   ```
+   ```bash
    cd ecomfulfil-backend
    ```
 
 2. **Create a virtual environment and activate it**
    ```bash
    python3 -m venv venv
+   ```
+   ```bash
    source venv/bin/activate
    ```
 
@@ -40,6 +44,8 @@ Ecomfulfil Backend is a Django-based backend application providing REST APIs for
 6. **Run migrations and create a superuser**
    ```bash
    python manage.py migrate
+   ```
+   ```bash
    python manage.py createsuperuser
    ```
 

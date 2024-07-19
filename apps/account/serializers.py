@@ -8,10 +8,10 @@ User = get_user_model()
 
 password_validator = RegexValidator(
     regex=r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$",
-    message="Password validation message here.",
+    message="Invalid password",
 )
 username_validator = RegexValidator(
-    regex=r"/^[a-zA-Z0-9_.-]*$/", message="Username validation message here."
+    regex=r"^[a-zA-Z0-9_.-]*$", message="Invalid username"
 )
 
 
