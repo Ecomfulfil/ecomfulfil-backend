@@ -1,18 +1,36 @@
-# Use the official Python image as the base image
-FROM python:3.10-slim
-
-# Set environment variables
-ENV PYTHONUNBUFFERED 1
+# Use an official Python runtime as the base image
+FROM python:3.10.4-buster
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /opt/project
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONPATH .
+ENV ECOMFULFIL_SETTING_IN_DOCKER true
 
-# Copy project
-COPY . .
+# Install dependencies
+RUN set -xe \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends build-essential \
+    && pip install virtualenvwrapper poetry==1.4.2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Run database migrations and start the application
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+# Copy and install Python dependencies
+COPY ["poetry.lock", "pyproject.toml", "./"]
+RUN poetry install --no-root
+
+# Copy project files
+COPY ["README.md", "Makefile", "./"]
+COPY core core
+COPY local local
+
+# Expose the Django development server port (adjust if needed)
+EXPOSE 8000
+
+# Set up the entrypoint
+COPY scripts/entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
