@@ -8,9 +8,9 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_DB: core
-      POSTGRES_USER: core
-      POSTGRES_PASSWORD: core
+      POSTGRES_DB: ecomfulfil
+      POSTGRES_USER: ecomfulfil
+      POSTGRES_PASSWORD: ecomfulfil
     volumes:
       - postgresql-data:/var/lib/postgresql/data
 
