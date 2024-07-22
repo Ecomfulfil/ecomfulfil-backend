@@ -71,7 +71,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "ecomfulfil_backend",
-        "USER": "ecomfulfil_backend",
+        "USER": "postgres",
         "PASSWORD": "ecomfulfil_backend",
         "HOST": "localhost",
         "PORT": "5432",
