@@ -19,5 +19,20 @@ jobs:
     needs: quality-assurance
     runs-on: prod
     steps:
+      - name: Docker Compose Down
+        run: docker-compose down
+
+      - name: Back up /local folder
+        run: mkdir -p ~/backup && cp -r /local ~/backup/
+
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Restore /local folder
+        run: cp -r ~/backup/local /local
+
+      - name: Docker Compose Build
+        run: docker-compose build
+
+      - name: Docker Compose Up
+        run: docker-compose up -d --force-recreate
