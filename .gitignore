@@ -73,4 +73,3 @@ pip-log.txt
 coverage.xml
 htmlcov/
 nosetests.xml
-/celerybeat-schedule*

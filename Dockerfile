@@ -1,5 +1,5 @@
 # Use an official Python runtime as the base image
-FROM python:3.12-slim
+FROM python:3.10.4-buster
 
 # Set the working directory in the container
 WORKDIR /opt/project
@@ -7,7 +7,7 @@ WORKDIR /opt/project
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONPATH .
-ENV ECOMFULFIL_SETTING_IN_DOCKER true
+ENV ECOMFULFIL_BACKEND_SETTING_IN_DOCKER true
 
 # Install dependencies
 RUN set -xe \
