@@ -73,7 +73,7 @@ DATABASES = {
         "NAME": "ecomfulfil_backend",
         "USER": "postgres",
         "PASSWORD": "ecomfulfil_backend",
-        "HOST": "localhost",
+        "HOST": "db",
         "PORT": "5432",
         "ATOMIC_REQUESTS": True,
         # TODO(dmu) MEDIUM: Unfortunately Daphne / ASGI / Django Channels do not properly reuse database connections
