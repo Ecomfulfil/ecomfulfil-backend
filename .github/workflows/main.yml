@@ -19,20 +19,35 @@ jobs:
     needs: quality-assurance
     runs-on: prod
     steps:
-      - name: Docker Compose Down
-        run: docker-compose down
+      # - name: Docker Compose Down
+      #   run: docker-compose down
 
-      - name: Back up /local folder
-        run: mkdir -p ~/backup && cp -r /local ~/backup/
+      - name: Cache Local Folder
+        id: cache-local
+        uses: actions/cache@v3
+        with:
+          path: ./local
+          key: ${{ runner.os }}-local-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-local-
 
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Restore /local folder
-        run: cp -r ~/backup/local /local
+      - name: Restore Local Folder
+        run: |
+          if [ -d ./local ]; then
+            cp -r ./local/* ./restored-local/
+          fi
 
-      - name: Docker Compose Build
-        run: docker-compose build
+      # - name: Docker Compose Build
+      #   run: docker-compose build
 
-      - name: Docker Compose Up
-        run: docker-compose up -d --force-recreate
+      # - name: Docker Compose Up
+      #   run: docker-compose up -d --force-recreate
+
+      - name: Save Local Folder
+        if: always()
+        run: |
+          mkdir -p ./local
+          cp -r ./restored-local/* ./local/

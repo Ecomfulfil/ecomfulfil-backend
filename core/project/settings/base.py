@@ -28,10 +28,6 @@ INSTALLED_APPS = [
     "storages",
     # Apps
     "core.accounts.apps.AccountsConfig",
-    "core.blocks.apps.BlocksConfig",
-    "core.comments.apps.CommentsConfig",
-    "core.config.apps.SettingsConfig",
-    "core.recipes.apps.RecipesConfig",
 ]
 
 MIDDLEWARE = [
@@ -70,10 +66,10 @@ WSGI_APPLICATION = "core.project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "ecomfulfil_backend",
+        "NAME": "ecomfulfil",
         "USER": "postgres",
-        "PASSWORD": "ecomfulfil_backend",
-        "HOST": "db",
+        "PASSWORD": "ecomfulfil",
+        "HOST": "localhost",
         "PORT": "5432",
         "ATOMIC_REQUESTS": True,
         # TODO(dmu) MEDIUM: Unfortunately Daphne / ASGI / Django Channels do not properly reuse database connections
