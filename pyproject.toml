@@ -2,7 +2,7 @@
 name = "ecomfulfil-backend"
 version = "0.1.0"
 description = ""
-authors = ["bucky <buckyroberts@gmail.com>"]
+authors = ["zubair <zubair@stackverx.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [{include = "core"}]
