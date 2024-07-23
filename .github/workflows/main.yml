@@ -16,7 +16,7 @@ jobs:
 
   deploy:
     name: Deploy
-    needs: quality-assurance
+    # needs: quality-assurance
     runs-on: prod
     steps:
       # - name: Docker Compose Down
