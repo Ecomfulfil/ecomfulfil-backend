@@ -22,6 +22,8 @@ services:
     depends_on:
       - db
     environment:
+      SECRET_KEY: ${ECOMFULFIL_SECRET_KEY}
+      DEBUG: ${ECOMFULFIL_DEBUG}
       ECOMFULFIL_DATABASES: '{"default":{"HOST":"db"}}'
 
 volumes:
