@@ -21,9 +21,9 @@ services:
       - '8000:8000'
     depends_on:
       - db
+    env_file:
+      - .env
     environment:
-      SECRET_KEY: ${ECOMFULFIL_SECRET_KEY}
-      DEBUG: ${ECOMFULFIL_DEBUG}
       ECOMFULFIL_DATABASES: '{"default":{"HOST":"db"}}'
 
 volumes:
