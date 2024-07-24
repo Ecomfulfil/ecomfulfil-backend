@@ -19,14 +19,14 @@ jobs:
     needs: quality-assurance
     runs-on: prod
     steps:
-      - name: Docker Compose Down
-        run: docker-compose down
+      # - name: Docker Compose Down
+      #   run: docker-compose down
 
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Docker Compose Build
-        run: docker-compose build
+      # - name: Docker Compose Build
+      #   run: docker-compose build
 
-      - name: Docker Compose Up
-        run: docker-compose up -d --force-recreate
+      # - name: Docker Compose Up
+      #   run: docker-compose up -d --force-recreate

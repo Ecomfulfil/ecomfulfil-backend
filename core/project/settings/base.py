@@ -68,9 +68,9 @@ WSGI_APPLICATION = "core.project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "ecomfulfil_backend",
+        "NAME": "ecomfulfil",
         "USER": "postgres",
-        "PASSWORD": "ecomfulfil_backend",
+        "PASSWORD": "ecomfulfil",
         "HOST": "localhost",
         "PORT": "5432",
         "ATOMIC_REQUESTS": True,

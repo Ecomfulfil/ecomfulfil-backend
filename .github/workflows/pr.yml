@@ -11,9 +11,9 @@ jobs:
       db:
         image: postgres:14.2-alpine
         env:
-          POSTGRES_DB: ecomfulfil_backend
+          POSTGRES_DB: ecomfulfil
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ecomfulfil_backend
+          POSTGRES_PASSWORD: ecomfulfil
 
     steps:
       - uses: actions/checkout@v2
