@@ -32,6 +32,8 @@ media
 # Environments
 .venv
 /.env
+/.env.prod
+/.env.dev
 /local
 ENV/
 env.bak/

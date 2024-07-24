@@ -22,8 +22,7 @@ services:
     depends_on:
       - db
     environment:
-      ECOMFULFIL_SETTING_DATABASES: '{"default":{"HOST":"db"}}'
-      ECOMFULFIL_SETTING_LOCAL_SETTINGS_PATH: 'local/settings.prod.py'
+      ECOMFULFIL_DATABASES: '{"default":{"HOST":"db"}}'
 
 volumes:
   postgresql-data:

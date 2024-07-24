@@ -1,10 +1,10 @@
-# from emails.utils import send_password_reset_email, send_verification_email
-# from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+
+from core.emails.utils import send_reset_password_email, send_verification_email
 
 from .serializers import (
     ForgotPasswordSerializer, LoginSerializer, LogoutSerializer, RefreshTokenSerializer, RegisterSerializer,
@@ -95,11 +95,10 @@ class ForgotPasswordView(APIView):
     def post(self, request):
         serializer = ForgotPasswordSerializer(data=request.data)
         if serializer.is_valid():
-            # email = serializer.validated_data["email"]
-            # user = User.objects.get(email=email)
-            # access_token = str(RefreshToken.for_user(user))
-            # reset_url = f"{settings.HOST_URL}/reset-password/{access_token}/"
-            # send_password_reset_email(user.email, reset_url)
+            email = serializer.validated_data["email"]
+            user = User.objects.get(email=email)
+            token = str(RefreshToken.for_user(user))
+            send_reset_password_email(user, token)
             return Response({"message": "Password reset email sent."}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -132,9 +131,8 @@ class SendVerificationEmailView(APIView):
                     {"message": "Email already verified."},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
-            # token = str(RefreshToken.for_user(user))
-            # verification_url = f"{settings.CLIENT_URL}/verify-email/{token}/"
-            # send_verification_email(user.email, verification_url)
+            token = str(RefreshToken.for_user(user))
+            send_verification_email(user, token)
             return Response({"message": "Verification email sent."}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

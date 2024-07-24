@@ -52,12 +52,10 @@ Follow these instructions to set up the project:
       .\venv\Scripts\activate
       ```
 
-4. **Create a local directory for settings and copy the template settings files:**
+4. **Copy the environment variable configuration file:**
 
     ```bash
-    mkdir -p local
-    cp core/project/settings/templates/settings.dev.py ./local/settings.dev.py
-    cp core/project/settings/templates/settings.unittests.py ./local/settings.unittests.py
+    cp .env.example .env
     ```
 
 5. **Install the project dependencies:**
@@ -95,14 +93,7 @@ A brief overview of the project structure:
 ```
 ├── core/
 │   ├── project/
-│   │   ├── settings/
-│   │   │   ├── templates/
-│   │   │   │   ├── settings.dev.py
-│   │   │   │   ├── settings.unittests.py
 │   │   ├── ...
-├── local/
-│   ├── settings.dev.py
-│   ├── settings.unittests.py
 ├── manage.py
 ├── Makefile
 ├── ...

@@ -32,5 +32,5 @@ jobs:
       - name: Test
         run: make test
         env:
-          ECOMFULFIL_SETTING_DATABASES: '{"default":{"HOST":"db"}}'
-          ECOMFULFIL_SETTING_LOCAL_SETTINGS_PATH: './core/project/settings/templates/settings.github.py'
+          ECOMFULFIL_DATABASES: '{"default":{"HOST":"db"}}'
+          ECOMFULFIL_LOCAL_SETTINGS_PATH: './core/project/settings/templates/settings.github.py'

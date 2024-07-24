@@ -24,8 +24,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          clean: false
 
       - name: Docker Compose Build
         run: docker-compose build

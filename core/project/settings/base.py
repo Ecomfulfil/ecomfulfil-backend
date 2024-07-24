@@ -47,7 +47,9 @@ ROOT_URLCONF = "core.project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            BASE_DIR / "core/emails/templates"  # type: ignore # noqa: F821
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
