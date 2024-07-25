@@ -18,14 +18,14 @@ if not os.path.isabs(LOCAL_SETTINGS_PATH):
 
 include(
     "base.py",
-    "envvars.py",
     "rest_framework.py",
     "channels.py",
     "aws.py",
+    "mail.py",
     "custom.py",
     optional(LOCAL_SETTINGS_PATH),
+    "envvars.py",
     "logging.py",
-    "mail.py",
     "docker.py",
 )
 
